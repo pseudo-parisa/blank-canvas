@@ -14,34 +14,34 @@
 
 ## Phase 1 — Foundation
 
-- [ ] Set up React + TypeScript + Vite
-- [ ] Set up Tailwind CSS
-- [ ] Set up shadcn/ui
-- [ ] Set up React Router
-- [ ] Set up TanStack Query
-- [ ] Set up React Hook Form
-- [ ] Set up Zod
-- [ ] Establish frontend structure
-- [ ] Set up NestJS
-- [ ] Set up Prisma
-- [ ] Connect PostgreSQL
-- [ ] Establish backend modules
-- [ ] Configure environment variables
+- [x] Set up React + TypeScript + Vite
+- [x] Set up Tailwind CSS
+- [x] Set up shadcn/ui
+- [x] Set up React Router
+- [x] Set up TanStack Query
+- [x] Set up React Hook Form
+- [x] Set up Zod
+- [x] Establish frontend structure
+- [x] Set up NestJS
+- [x] Set up Prisma
+- [x] Connect PostgreSQL
+- [x] Establish backend modules
+- [x] Configure environment variables
 
 ---
 
 ## Phase 2 — Design & Public Experience
 
-- [ ] Implement design tokens
-- [ ] Build Navbar
-- [ ] Build responsive layout
-- [ ] Build landing page
-- [ ] Build About page
-- [ ] Build Browse page
-- [ ] Build Auction discovery
-- [ ] Build Artwork cards
-- [ ] Build Artwork detail page
-- [ ] Build Auction detail page
+- [x] Implement design tokens
+- [x] Build Navbar
+- [x] Build responsive layout
+- [x] Build landing page
+- [x] Build About page
+- [x] Build Browse page
+- [x] Build Auction discovery
+- [x] Build Artwork cards
+- [x] Build Artwork detail page
+- [x] Build Auction detail page
 
 ---
 
@@ -52,10 +52,13 @@
 - [ ] Logout
 - [ ] JWT authentication
 - [ ] Password hashing
+- [ ] Input validation
+- [ ] Email validation
 - [ ] Authentication guards
 - [ ] Role-based authorization
 - [ ] Protected frontend routes
 - [ ] User profile
+- [ ] Authentication error handling
 
 ---
 
@@ -63,7 +66,9 @@
 
 - [ ] Artwork database model
 - [ ] Artwork CRUD API
+- [ ] Artwork ownership and authorization
 - [ ] Seller artwork management
+- [ ] Artwork status management
 - [ ] Image upload
 - [ ] Cloudinary integration
 - [ ] Artwork search
@@ -77,6 +82,8 @@
 - [ ] Auction database model
 - [ ] Auction creation
 - [ ] Auction editing
+- [ ] Auction ownership and authorization
+- [ ] Auction validation
 - [ ] Auction states
 - [ ] Start/end times
 - [ ] Starting price
@@ -92,10 +99,12 @@
 - [ ] Bid database model
 - [ ] Place bid API
 - [ ] Bid validation
+- [ ] Bid ownership tracking
 - [ ] Bid history
 - [ ] Current bid display
 - [ ] Winning/outbid state
 - [ ] Invalid bid handling
+- [ ] Transaction-safe bid processing
 - [ ] Concurrent bidding protection
 
 ---
@@ -104,9 +113,11 @@
 
 - [ ] Socket.IO setup
 - [ ] Auction rooms
+- [ ] Room authorization
 - [ ] Live bid events
 - [ ] Live current-price updates
 - [ ] Auction-ended events
+- [ ] Client reconnection handling
 - [ ] Connection/error handling
 
 ---
@@ -144,11 +155,15 @@
 - [ ] Authentication testing
 - [ ] Authorization testing
 - [ ] Artwork ownership testing
+- [ ] Input validation testing
 - [ ] Bid validation testing
 - [ ] Expired auction testing
 - [ ] Concurrent bid testing
+- [ ] Real-time event testing
+- [ ] Ownership/permission testing
 - [ ] API error handling
 - [ ] Frontend error states
+- [ ] Rate limiting review
 - [ ] Environment variable review
 - [ ] Production security review
 
@@ -164,5 +179,10 @@
 - [ ] CORS configuration
 - [ ] Production testing
 - [ ] Route/rewrite configuration
+- [ ] Production API configuration
+- [ ] Production frontend configuration
+- [ ] Database migration strategy
+- [ ] Deployment documentation
+- [ ] Final portfolio documentation
 
 ---
