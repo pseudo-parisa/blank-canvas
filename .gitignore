@@ -21,3 +21,8 @@ generated/
 # OS
 .DS_Store
 Thumbs.db
+
+# AI/editor tool configuration
+.claude/
+.agents/
+.windsurf/
