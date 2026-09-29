@@ -9,6 +9,7 @@ import {
 import {
   getCurrentUser,
   login as loginRequest,
+  register as registerRequest,
   logout as logoutRequest,
   type User,
 } from '../services/auth';
@@ -17,6 +18,11 @@ interface AuthContextValue {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+  ) => Promise<void>;
   logout: () => void;
 }
 
@@ -51,28 +57,37 @@ export function AuthProvider({
       });
   }, []);
 
-  async function login(email: string, password: string) {
-    const response = await loginRequest(email, password);
-    setUser(response.user);
-  }
+    async function login(email: string, password: string) {
+        const response = await loginRequest(email, password);
+        setUser(response.user);
+    }
 
-  function logout() {
-    logoutRequest();
-    setUser(null);
-  }
+    async function register(
+        name: string,
+        email: string,
+        password: string,
+    ) {
+        await registerRequest(name, email, password);
+    }
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        login,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    function logout() {
+        logoutRequest();
+        setUser(null);
+    }
+
+    return (
+        <AuthContext.Provider
+            value={{
+            user,
+            loading,
+            login,
+            register,
+            logout,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
 export function useAuth() {

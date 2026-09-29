@@ -11,6 +11,8 @@ import About from "./pages/About"
 import Home from "./pages/Home"
 import ArtworkDetail from "./pages/ArtworkDetail";
 import AuctionDetail from "./pages/AuctionDetail";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
     return (
@@ -23,6 +25,8 @@ function App() {
                     <Route path="/auctions" element={<Auctions />} />
                     <Route path="/artworks/:id" element={<ArtworkDetail />} />
                     <Route path="/auctions/:id" element={<AuctionDetail />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                 </Route>
             </Routes>
         </BrowserRouter>
