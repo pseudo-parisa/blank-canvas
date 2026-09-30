@@ -13,6 +13,9 @@ import ArtworkDetail from "./pages/ArtworkDetail";
 import AuctionDetail from "./pages/AuctionDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ProtectedRoute from "./components/route/ProtectedRoute";
+import Profile from "./pages/Profile";
+import GuestRoute from "./components/route/GuestRoute";
 
 function App() {
     return (
@@ -25,8 +28,13 @@ function App() {
                     <Route path="/auctions" element={<Auctions />} />
                     <Route path="/artworks/:id" element={<ArtworkDetail />} />
                     <Route path="/auctions/:id" element={<AuctionDetail />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route element={<GuestRoute />}>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="/profile" element={<Profile />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

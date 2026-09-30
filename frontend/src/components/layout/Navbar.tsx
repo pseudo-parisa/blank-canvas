@@ -1,6 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+
 
 const navItems = [
     { label: "Home", to: "/" },
@@ -11,6 +13,8 @@ const navItems = [
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { user, isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
 
     return (
         <header className="relative sticky top-0 z-50 bg-[#1c1c1c]/95 px-4 py-4 backdrop-blur-md">
@@ -43,14 +47,6 @@ function Navbar() {
                     ))}
                 </nav>
 
-                {/* Login / Sign Up */}
-                <Link
-                    to="/login"
-                    className="text-sm text-violet-500 transition-colors hover:text-violet-700"
-                >
-                    Login / Sign Up
-                </Link>
-
                 {/* Mobile Menu Button */}
                 <button
                     className="md:hidden"
@@ -77,6 +73,45 @@ function Navbar() {
                         </nav>
                     </div>
                 )}
+
+                {isAuthenticated ? (
+                    <div className="flex items-center gap-4">
+                        <Link
+                        to="/profile"
+                        className="text-sm text-[#403a42] transition hover:text-[#806292]"
+                        >
+                        Profile
+                        </Link>
+
+                        <button
+                        type="button"
+                        onClick={() => {
+                            logout();
+                            navigate('/');
+                        }}
+                        className="text-sm text-[#403a42] transition hover:text-[#806292]"
+                        >
+                        Logout
+                        </button>
+                    </div>
+                    ) : (
+                    <div className="flex items-center gap-4">
+                        <Link
+                        to="/login"
+                        className="text-sm text-[#403a42] transition hover:text-[#806292]"
+                        >
+                        Sign in
+                        </Link>
+
+                        <Link
+                        to="/register"
+                        className="rounded-full bg-[#29252a] px-5 py-2.5 text-sm text-white transition hover:bg-[#403a42]"
+                        >
+                        Create account
+                        </Link>
+                    </div>
+                    )}
+
             </div>
         </header>
     );

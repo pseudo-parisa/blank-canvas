@@ -86,5 +86,27 @@ export class AuthService {
         role: user.role,
         },
     };
+  }
+
+  async getCurrentUser(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('User no longer exists');
     }
+
+    return user;
+  }
 }
