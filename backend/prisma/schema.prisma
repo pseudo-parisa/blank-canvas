@@ -15,10 +15,53 @@ enum Role {
 
 model User {
   id           Int      @id @default(autoincrement())
-  name         String 
+  name         String
   email        String   @unique
   passwordHash String
   role         Role     @default(BUYER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  // one user can own multiple artworks.
+  artworks     Artwork[]
+}
+
+// controls whether artwork is private, publicly discoverable,
+// or no longer being offered by its seller
+enum ArtworkStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Artwork {
+  // basic artwork info
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String        @db.Text
+  medium      String?
+
+  // optional dimensions; can be left empty if unknown
+  width       Float?
+  height      Float?
+
+  // connected to Cloudinary
+  imageUrl    String?
+
+  // new artwork starts as a draft
+  status      ArtworkStatus @default(DRAFT)
+
+  // every artwork must have an owner
+  sellerId    Int
+  seller      User          @relation(fields: [sellerId], references: [id], onDelete: Restrict)
+
+  // timestamps
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // retrieval of seller's artwork
+  @@index([sellerId, createdAt])
+
+  // retrieval of published artwork in creation order
+  @@index([status, createdAt])
 }
