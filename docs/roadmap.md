@@ -47,18 +47,18 @@
 
 ## Phase 3 — Authentication & Users
 
-- [ ] Registration
-- [ ] Login
-- [ ] Logout
-- [ ] JWT authentication
-- [ ] Password hashing
-- [ ] Input validation
-- [ ] Email validation
-- [ ] Authentication guards
-- [ ] Role-based authorization
-- [ ] Protected frontend routes
-- [ ] User profile
-- [ ] Authentication error handling
+- [x] Registration
+- [x] Login
+- [x] Logout
+- [x] JWT authentication
+- [x] Password hashing
+- [x] Input validation
+- [x] Email validation
+- [x] Authentication guards
+- [x] Role-based authorization
+- [x] Protected frontend routes
+- [x] User profile
+- [x] Authentication error handling
 
 ---
 
