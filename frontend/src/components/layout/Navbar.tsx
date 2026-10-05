@@ -71,7 +71,7 @@ export default function Navbar() {
           Blank Canvas
         </Link>
 
-        {/* Desktop navigation */}
+        {/* desktop navigation */}
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((item) => (
             <Link
@@ -84,7 +84,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Account / authentication actions */}
+        {/* account / authentication actions */}
         <div className="flex items-center gap-3">
           {!loading && !isAuthenticated && (
             <div className="hidden items-center gap-3 sm:flex">
@@ -145,7 +145,7 @@ export default function Navbar() {
                   aria-label="Account menu"
                   className="absolute right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-[#e9e0eb] bg-[#fffdfb] shadow-[0_20px_60px_rgba(60,40,70,0.15)]"
                 >
-                  {/* Account identity */}
+                  {/* account identity */}
                   <div className="border-b border-[#eee7ef] px-5 py-4">
                     <p className="truncate font-serif text-lg text-[#342c38]">
                       {user.name}
@@ -160,7 +160,7 @@ export default function Navbar() {
                     </span>
                   </div>
 
-                  {/* Account options */}
+                  {/* account options */}
                   <div className="p-2">
                     <Link
                       role="menuitem"
@@ -185,16 +185,14 @@ export default function Navbar() {
                     )}
 
                     {role === 'SELLER' && (
-                      <div className="px-3 py-2.5">
-                        <p className="text-sm text-[#514653]">
-                          Seller tools
-                        </p>
-
-                        <p className="mt-1 text-xs leading-relaxed text-[#968b99]">
-                          Artwork and auction management will be
-                          available when those features are built.
-                        </p>
-                      </div>
+                        <Link
+                          role="menuitem"
+                          to="/my-artworks"
+                          onClick={closeMenus}
+                          className="block rounded-xl px-3 py-2.5 text-sm text-[#514653] transition hover:bg-[#f5eff7] hover:text-[#70577f]"
+                        >
+                          My artwork
+                        </Link>
                     )}
 
                     {role === 'ADMIN' && (

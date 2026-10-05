@@ -16,12 +16,15 @@ import Register from "./pages/Register";
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import Profile from "./pages/Profile";
 import GuestRoute from "./components/route/GuestRoute";
+import MyArtworks from "./pages/MyArtworks";
+import SellerRoute from "./components/route/SellerRoute";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route element={<MainLayout />}>
+                    // accessible to all users
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/browse" element={<Browse />} />
@@ -29,11 +32,17 @@ function App() {
                     <Route path="/artworks/:id" element={<ArtworkDetail />} />
                     <Route path="/auctions/:id" element={<AuctionDetail />} />
                     <Route element={<GuestRoute />}>
+                        // accessible to guests only
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Route>
                     <Route element={<ProtectedRoute />}>
+                        // accessible to all logged in users
                         <Route path="/profile" element={<Profile />} />
+                        <Route element={<SellerRoute />}>
+                            // accessible to sellers or administrators who are logged in
+                            <Route path="/my-artworks" element={<MyArtworks />} />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>
