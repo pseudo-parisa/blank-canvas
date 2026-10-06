@@ -26,21 +26,26 @@ The project is being developed progressively, starting with the visual experienc
 ## 🛠️ Tech Stack
 
 ### Frontend
-* React
-* TypeScript
-* Vite
-* React Router
-* Tailwind CSS
-* Lucide React
+- React
+- TypeScript
+- Vite
+- React Router
+- Tailwind CSS
+- Lucide React
+- TanStack Query
+- React Hook Form
+- Zod
 
 ### Backend
 - Node.js
 - NestJS
 - TypeScript
+- JWT Authentication
+- bcrypt
 
 ### Database
 - PostgreSQL
-- Prisma
+- Prisma ORM
 
 ### Real-Time
 - WebSockets
@@ -65,14 +70,13 @@ blank-canvas/
 │   │   │   ├── artwork/
 │   │   │   ├── auction/
 │   │   │   ├── common/
-│   │   │   └── layout/
+│   │   │   ├── layout/
+│   │   │   └── route/
 │   │   │
+│   │   ├── context/
 │   │   ├── features/
 │   │   │   ├── mockArtworks.ts
 │   │   │   └── mockAuctions.ts
-│   │   │
-│   │   ├── layouts/
-│   │   │   └── MainLayout.tsx
 │   │   │
 │   │   ├── pages/
 │   │   │   ├── Home.tsx
@@ -80,14 +84,38 @@ blank-canvas/
 │   │   │   ├── Browse.tsx
 │   │   │   ├── ArtworkDetail.tsx
 │   │   │   ├── Auctions.tsx
-│   │   │   └── AuctionDetail.tsx
+│   │   │   ├── AuctionDetail.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   ├── Profile.tsx
+│   │   │   └── MyArtworks.tsx
 │   │   │
+│   │   ├── services/
 │   │   ├── types/
 │   │   │   ├── artwork.ts
 │   │   │   └── auction.ts
 │   │   │
 │   │   ├── App.tsx
 │   │   └── index.css
+│   │
+│   └── ...
+│
+├── backend/
+│   ├── prisma/
+│   │   ├── migrations/
+│   │   └── schema.prisma
+│   │
+│   ├── src/
+│   │   ├── admin/
+│   │   ├── artworks/
+│   │   ├── auctions/
+│   │   ├── auth/
+│   │   ├── bids/
+│   │   ├── notifications/
+│   │   ├── prisma/
+│   │   ├── users/
+│   │   ├── watchlist/
+│   │   └── main.ts
 │   │
 │   └── ...
 │
@@ -142,7 +170,7 @@ Authentication
 
 ## 🧩 Development Approach
 
-Blank Canvas is being developed incrementally rather than building the entire application at once.
+Blank Canvas is being developed incrementally.
 
 👉 **[View the Development Roadmap](roadmap.md)**
 
@@ -157,8 +185,8 @@ Universiti Sains Malaysia
 
 ## 📄 Project Status
 
-**Current milestone:**
+**Currently In Progress**
 
-> **Phase 2 — Core UI & Marketplace Experience ✅**
+> **Phase 4 — Artwork Marketplace**
 
-The next major milestone is the implementation of **authentication and role-based user workflows**.
+The next major milestone is the implementation of **auction and bidding systems**.

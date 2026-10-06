@@ -64,11 +64,11 @@
 
 ## Phase 4 — Artwork Marketplace
 
-- [ ] Artwork database model
-- [ ] Artwork CRUD API
-- [ ] Artwork ownership and authorization
-- [ ] Seller artwork management
-- [ ] Artwork status management
+- [x] Artwork database model
+- [x] Artwork CRUD API
+- [x] Artwork ownership and authorization
+- [x] Seller artwork management
+- [x] Artwork status management
 - [ ] Image upload
 - [ ] Cloudinary integration
 - [ ] Artwork search
