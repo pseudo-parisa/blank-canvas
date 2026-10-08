@@ -4,11 +4,14 @@ import {
   Delete,
   Get,
   Param,
+  ParseFilePipeBuilder,
   ParseIntPipe,
   Patch,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import type { Request } from 'express';
@@ -23,6 +26,8 @@ import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
 
 import { Role } from '../generated/prisma/client.js';
+
+import { FileInterceptor } from '@nestjs/platform-express';
 
 // include user info
 interface AuthenticatedRequest extends Request {
@@ -114,6 +119,46 @@ export class ArtworksController {
       id,
       req.user.sub,
       req.user.role,
+    );
+  }
+
+  // upload artwork image, restricted to owner or administrator
+  @Post(':id/image')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.SELLER, Role.ADMIN)
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: {
+        // limit file size to 5MB
+        fileSize: 5 * 1024 * 1024,
+      },
+    }),
+  )
+  uploadImage(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req: AuthenticatedRequest,
+
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        // Only allow JPEG, PNG, and WebP images
+        .addFileTypeValidator({
+          fileType: /^image\/(jpeg|png|webp)$/,
+        })
+
+        // limit file size to 5MB
+        .addMaxSizeValidator({
+          maxSize: 5 * 1024 * 1024,
+        })
+
+        .build(),
+    )
+    file: Express.Multer.File,
+  ) {
+    return this.artworksService.uploadImage(
+      id,
+      req.user.sub,
+      req.user.role,
+      file,
     );
   }
 }
