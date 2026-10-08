@@ -46,7 +46,8 @@ model Artwork {
   height      Float?
 
   // connected to Cloudinary
-  imageUrl    String?
+  imageUrl       String?
+  imagePublicId  String?
 
   // new artwork starts as a draft
   status      ArtworkStatus @default(DRAFT)
