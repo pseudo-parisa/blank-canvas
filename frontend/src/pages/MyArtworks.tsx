@@ -6,6 +6,7 @@ import {
   getMyArtworks,
   updateArtwork,
   updateArtworkStatus,
+  uploadArtworkImage,
   type Artwork,
   type ArtworkInput,
   type ArtworkStatus,
@@ -156,6 +157,31 @@ export default function MyArtworks() {
       setError(
         err?.response?.data?.message ??
           'Unable to delete this artwork.',
+      );
+    }
+  }
+
+  async function handleImageUpload(
+    artwork: Artwork,
+    file: File | undefined,
+  ) {
+    if (!file) {
+      return;
+    }
+
+    setError('');
+    setSuccess('');
+
+    try {
+      await uploadArtworkImage(artwork.id, file);
+
+      setSuccess('Artwork image uploaded successfully.');
+
+      await loadArtworks();
+    } catch (err: any) {
+      setError(
+        err?.response?.data?.message ??
+          'Unable to upload artwork image.',
       );
     }
   }
@@ -398,6 +424,39 @@ export default function MyArtworks() {
                     key={artwork.id}
                     className="rounded-2xl border border-[#e6e0e5] bg-white/80 p-5 shadow-sm"
                   >
+                    <div className="mb-5">
+                      {artwork.imageUrl ? (
+                        <img
+                          src={artwork.imageUrl}
+                          alt={artwork.title}
+                          className="h-64 w-full rounded-2xl object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-48 items-center justify-center rounded-2xl bg-[#eee8f0]">
+                          <p className="text-sm text-[#857b89]">
+                            No artwork image yet
+                          </p>
+                        </div>
+                      )}
+
+                      <label className="mt-3 inline-flex cursor-pointer rounded-full border border-[#e3dbe5] px-4 py-2 text-xs text-[#65536f] transition hover:bg-[#f5eff7]">
+                        {artwork.imageUrl ? 'Replace image' : 'Upload image'}
+
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp"
+                          className="hidden"
+                          onChange={(event) => {
+                            void handleImageUpload(
+                              artwork,
+                              event.target.files?.[0],
+                            );
+                            event.target.value = '';
+                          }}
+                        />
+                      </label>
+                    </div>
+
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div className="min-w-0 flex-1">
                         <h3 className="break-words font-serif text-xl text-[#342c38]">

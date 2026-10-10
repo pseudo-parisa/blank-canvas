@@ -66,3 +66,20 @@ export async function updateArtworkStatus(
 export async function deleteArtwork(id: number): Promise<void> {
   await api.delete(`/artworks/${id}`);
 }
+
+// upload artwork image
+export async function uploadArtworkImage(
+  artworkId: number,
+  file: File,
+): Promise<Artwork> {
+  const formData = new FormData();
+
+  formData.append('file', file);
+
+  const response = await api.post<Artwork>(
+    `/artworks/${artworkId}/image`,
+    formData,
+  );
+
+  return response.data;
+}
