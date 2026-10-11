@@ -29,6 +29,9 @@ import { Role } from '../generated/prisma/client.js';
 
 import { FileInterceptor } from '@nestjs/platform-express';
 
+import { Query } from '@nestjs/common';
+import { ArtworkQueryDto } from './dto/artwork-query.dto.js';
+
 // include user info
 interface AuthenticatedRequest extends Request {
   user: {
@@ -44,8 +47,8 @@ export class ArtworksController {
 
   // only published artwork is returned
   @Get()
-  findPublished() {
-    return this.artworksService.findPublished();
+  findPublished(@Query() query: ArtworkQueryDto) {
+    return this.artworksService.findPublishedArtworks(query);
   }
 
   // returns all artwork owned by the seller

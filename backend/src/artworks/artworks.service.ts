@@ -7,12 +7,14 @@ import {
 
 import { Multer } from 'multer';
 
+import { Prisma } from '../generated/prisma/client.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 
 import { CreateArtworkDto } from './dto/create-artwork.dto.js';
 import { UpdateArtworkDto } from './dto/update-artwork.dto.js';
 import { ArtworkStatus } from '../generated/prisma/client.js';
+import { ArtworkQueryDto } from './dto/artwork-query.dto.js';
 
 @Injectable()
 export class ArtworksService {
@@ -44,24 +46,91 @@ export class ArtworksService {
     });
   }
 
-  // public discovery only returns published artwork
-  async findPublished() {
-    return this.prisma.artwork.findMany({
-      where: {
-        status: ArtworkStatus.PUBLISHED,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        seller: {
-          select: {
-            id: true,
-            name: true,
+  // fetch all published artworks 
+  async findPublishedArtworks(query: ArtworkQueryDto) {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 12;
+
+    const skip = (page - 1) * limit;
+
+    // only fetch published artworks 
+    const where: Prisma.ArtworkWhereInput = {
+      status: ArtworkStatus.PUBLISHED,
+    };
+
+    // search across title, description and medium if a search query is provided
+    if (query.search?.trim()) {
+      const search = query.search.trim();
+
+      where.OR = [
+        {
+          title: {
+            contains: search,
+            mode: 'insensitive',
           },
         },
+        {
+          description: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+        {
+          medium: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+      ];
+    }
+
+    // filter by medium if provided
+    if (query.medium?.trim()) {
+      where.medium = {
+        contains: query.medium.trim(),
+        mode: 'insensitive',
+      };
+    }
+
+    // fetch artworks and total count in parallel for pagination
+    const [artworks, total] = await Promise.all([
+      this.prisma.artwork.findMany({
+        where,
+
+        orderBy: {
+          createdAt: 'desc',
+        },
+
+        skip,
+        take: limit,
+
+        include: {
+          seller: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      }),
+
+      this.prisma.artwork.count({
+        where,
+      }),
+    ]);
+
+    return {
+      data: artworks,
+
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        hasNextPage: page * limit < total,
+        hasPreviousPage: page > 1,
       },
-    });
+    };
   }
 
   // sellers can view all of their own artwork, regardless of status

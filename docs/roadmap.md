@@ -69,8 +69,8 @@
 - [x] Artwork ownership and authorization
 - [x] Seller artwork management
 - [x] Artwork status management
-- [ ] Image upload
-- [ ] Cloudinary integration
+- [x] Image upload
+- [x] Cloudinary integration
 - [ ] Artwork search
 - [ ] Artwork filtering
 - [ ] Pagination
